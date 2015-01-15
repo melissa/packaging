@@ -147,19 +147,25 @@ popd
 
 pushd pkg
 
+<%= if Pkg::Config.version =~ /^4\.\d\.\d(-\d+)?$/ %>
+SET PKG_NAME=puppet-agent
+<% else %>
+SET PKG_NAME=puppet
+<% end %>
+
 echo Puppet&apos;s sha is: %SHA%
 echo Puppet&apos;s describe is: %VERSION_DESC%
 echo Puppet&apos;s target is: %TARGET%
 echo Puppet&apos;s type is: %TYPE%
 echo Puppet&apos;s arch is: %ARCH%
-echo Find the msi at: http://builds.puppetlabs.lan/puppet/%TARGET%/artifacts/windows/puppet-%VERSION_DESC%%SUFFIX%.msi
+echo Find the msi at: http://builds.puppetlabs.lan/puppet/%TARGET%/artifacts/windows/%PKG_NAME%-%VERSION_DESC%%SUFFIX%.msi
 
-move puppet%SUFFIX%.msi puppet-%VERSION_DESC%%SUFFIX%.msi
+move %PKG_NAME%%SUFFIX%.msi %PKG_NAME%-%VERSION_DESC%%SUFFIX%.msi
 
 set DEST_PATH=%ORIG_PATH%/windows
 ssh %BUILD_HOST% &quot;mkdir -p %DEST_PATH%&quot;
-REM rsync -avg --ignore-existing puppet-%VERSION_DESC%%SUFFIX%.msi %BUILD_HOST%:%DEST_PATH%
-scp -B puppet-%VERSION_DESC%%SUFFIX%.msi %BUILD_HOST%:%DEST_PATH%
+REM rsync -avg --ignore-existing %PKG_NAME%-%VERSION_DESC%%SUFFIX%.msi %BUILD_HOST%:%DEST_PATH%
+scp -B %PKG_NAME%-%VERSION_DESC%%SUFFIX%.msi %BUILD_HOST%:%DEST_PATH%
 
 popd</command>
     </hudson.tasks.BatchFile>
