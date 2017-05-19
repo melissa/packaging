@@ -9,10 +9,10 @@ module Pkg::Rpm::Repo
     end
 
     def repo_name
-      if Pkg::Config.yum_nonfinal_repo_name && !Pkg::Util::Version.is_final?
-        Pkg::Config.yum_nonfinal_repo_name
-      elsif Pkg::Config.yum_repo_name
-        Pkg::Config.yum_repo_name
+      if Pkg::Config.nonfinal_repo_name && !Pkg::Util::Version.is_final?
+        Pkg::Config.nonfinal_repo_name
+      elsif Pkg::Config.repo_name
+        Pkg::Config.repo_name
       elsif Pkg::Util::Version.is_final?
         "products"
       else

@@ -13,10 +13,10 @@ module Pkg::Deb::Repo
     # shipped to the development/beta/non-final repo, if there is one defined.
     # Otherwise, we probably shouldn't be shipping them...
     def repo_name
-      if Pkg::Config.apt_nonfinal_repo_name && !Pkg::Util::Version.is_final?
-        Pkg::Config.apt_nonfinal_repo_name
-      elsif Pkg::Config.apt_repo_name
-        Pkg::Config.apt_repo_name
+      if Pkg::Config.nonfinal_repo_name && !Pkg::Util::Version.is_final?
+        Pkg::Config.nonfinal_repo_name
+      elsif Pkg::Config.repo_name
+        Pkg::Config.repo_name
       else
         "main"
       end
