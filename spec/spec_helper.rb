@@ -3,6 +3,9 @@ require 'rspec'
 require 'pathname'
 require 'rake'
 
+require 'simplecov'
+SimpleCov.start
+
 SPECDIR = Pathname(__FILE__).dirname
 PROJECT_ROOT = File.expand_path(File.join(Pathname(__FILE__).dirname, ".."))
 FIXTURES = File.join(SPECDIR, 'fixtures')
